@@ -3,19 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu</title>
+  <title>Traplanta</title>
+  <meta name="description" content="Traplanta menu, updates, and contact." />
   <style>
+    :root {
+      --bg: #0a0b09;
+      --bg-soft: #11130f;
+      --panel: rgba(18, 20, 16, 0.94);
+      --panel-2: rgba(22, 24, 20, 0.96);
+      --border: rgba(255, 248, 235, 0.08);
+      --border-strong: rgba(255, 248, 235, 0.14);
+      --text: #f4efe5;
+      --muted: #a7a091;
+      --muted-2: #7f7a70;
+      --green: #718a67;
+      --green-2: #8ea27e;
+      --gold: #b6965c;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --container: 1120px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0a0a0a;
-      color: #f4efe6;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(182, 150, 92, 0.08), transparent 24%),
+        radial-gradient(circle at 85% 85%, rgba(113, 138, 103, 0.08), transparent 24%),
+        linear-gradient(180deg, #0b0c0a 0%, #0a0b09 100%);
+      color: var(--text);
       overflow-x: hidden;
       position: relative;
     }
@@ -24,24 +52,17 @@
       content: "";
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(201, 169, 110, 0.12), transparent 34%),
-        radial-gradient(circle at bottom, rgba(34, 197, 94, 0.06), transparent 28%);
       pointer-events: none;
-      z-index: 0;
+      opacity: 0.05;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.7) 0.5px, transparent 0.5px);
+      background-size: 4px 4px;
+      mix-blend-mode: soft-light;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
-      background-size: 72px 72px;
-      opacity: 0.06;
-      pointer-events: none;
-      z-index: 0;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .page {
@@ -51,245 +72,462 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 36px 20px;
     }
 
-    .shell {
+    .frame {
       width: 100%;
-      max-width: 640px;
-      border: 1px solid rgba(201, 169, 110, 0.2);
-      background: rgba(255,255,255,0.025);
-      border-radius: 32px;
-      padding: 12px;
-      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      animation: riseIn 0.8s ease-out both;
+      max-width: var(--container);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+        var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      min-height: 680px;
     }
 
-    .card {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
-      border-radius: 28px;
-      padding: 48px 32px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      margin-bottom: 16px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.45em;
-      color: #c9a96e;
-    }
-
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 24px;
-      opacity: 0.8;
-    }
-
-    .logo-wrap svg {
-      width: 36px;
-      height: 36px;
-      color: #c9a96e;
-    }
-
-    h1 {
-      font-size: clamp(3rem, 8vw, 4.5rem);
-      line-height: 1;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-    }
-
-    .subtext {
-      max-width: 470px;
-      margin: 20px auto 0;
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: rgba(244, 239, 230, 0.55);
-    }
-
-    .links {
-      margin-top: 48px;
+    .left {
+      padding: 42px 42px 34px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .link-card {
+      justify-content: space-between;
       position: relative;
-      display: block;
-      overflow: hidden;
-      border-radius: 26px;
-      border: 1px solid rgba(201, 169, 110, 0.2);
-      background: rgba(18,18,18,0.9);
-      padding: 22px 24px;
-      text-decoration: none;
-      color: inherit;
-      transform: translateY(16px);
-      opacity: 0;
-      animation: riseIn 0.6s ease-out forwards;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)),
+        radial-gradient(circle at top left, rgba(182, 150, 92, 0.08), transparent 34%);
     }
 
-    .link-card:nth-child(1) { animation-delay: 0.16s; }
-    .link-card:nth-child(2) { animation-delay: 0.24s; }
-    .link-card:nth-child(3) { animation-delay: 0.32s; }
-
-    .link-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(201,169,110,0), rgba(201,169,110,0.1), rgba(201,169,110,0));
-      opacity: 0;
-      transition: opacity 0.45s ease;
-    }
-
-    .link-card:hover::before {
-      opacity: 1;
-    }
-
-    .link-inner {
-      position: relative;
+    .brand-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      margin-bottom: 42px;
     }
 
-    .link-label {
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: #f8f3eb;
-    }
-
-    .enter {
-      font-size: 0.72rem;
-      letter-spacing: 0.35em;
-      color: rgba(34, 197, 94, 0.7);
+    .brand-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      transition: transform 0.3s ease;
+      color: var(--muted);
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
     }
 
-    .link-card:hover .enter {
-      transform: translateX(4px);
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--gold), #8c7348);
+      box-shadow: 0 0 16px rgba(182, 150, 92, 0.3);
+      flex: 0 0 auto;
     }
 
-    .footer-vibe {
-      margin-top: 48px;
+    .age-note {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+
+    .hero-copy {
+      max-width: 600px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .subtext {
+      max-width: 520px;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      will-change: transform;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #7f9373, #67805e);
+      color: #f6f1e7;
+      box-shadow: 0 10px 30px rgba(113, 138, 103, 0.2);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border-strong);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .bottom-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 46px;
+    }
+
+    .meta-card {
+      padding: 18px 18px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 10px;
+    }
+
+    .meta-value {
+      font-size: 0.98rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .right {
+      position: relative;
+      padding: 28px;
+      border-left: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)),
+        var(--panel-2);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .menu-panel {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.35em;
-      color: rgba(244, 239, 230, 0.3);
+      justify-content: space-between;
+      gap: 18px;
     }
 
-    .footer-row {
+    .menu-top {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .dot {
+    .menu-title-wrap h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+
+    .menu-title-wrap p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #dce8d8;
+      border: 1px solid rgba(142, 162, 126, 0.24);
+      background: rgba(113, 138, 103, 0.12);
+      padding: 10px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .menu-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 248, 235, 0.16);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .menu-link-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-link-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .menu-link-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .menu-link-arrow {
+      flex: 0 0 auto;
+      font-size: 0.9rem;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+
+    .menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+
+    .menu-footer-left,
+    .menu-footer-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-dot {
       width: 4px;
       height: 4px;
       border-radius: 999px;
-      display: inline-block;
+      background: rgba(255,255,255,0.2);
     }
 
-    .dot.gold { background: rgba(201, 169, 110, 0.7); }
-    .dot.green { background: rgba(34, 197, 94, 0.6); }
-
-    .disclaimer {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: rgba(244, 239, 230, 0.25);
-    }
-
-    @keyframes riseIn {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
+    @media (max-width: 980px) {
+      .frame {
+        grid-template-columns: 1fr;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .right {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .left {
+        padding: 28px 22px 22px;
+      }
+
+      .right {
+        padding: 22px;
+      }
+
+      .bottom-meta {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 640px) {
       .page {
-        padding: 28px 16px;
+        padding: 14px;
       }
 
-      .card {
-        padding: 36px 20px;
+      .frame {
+        border-radius: 24px;
       }
 
-      .link-card {
-        padding: 20px 18px;
+      .left,
+      .right {
+        padding: 18px;
       }
 
-      .link-label {
-        font-size: 1rem;
+      .brand-top {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 26px;
       }
 
-      .enter {
-        font-size: 0.66rem;
+      h1 {
+        font-size: 3rem;
+      }
+
+      .subtext {
+        font-size: 0.95rem;
+      }
+
+      .menu-panel {
+        padding: 16px;
+      }
+
+      .menu-link {
+        padding: 16px;
+      }
+
+      .menu-footer {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="shell">
-      <div class="card">
-        <p class="eyebrow">yart.shop</p>
+    <section class="frame">
+      <div class="left">
+        <div>
+          <div class="brand-top">
+            <div class="brand-chip">
+              <span class="brand-dot"></span>
+              <span>yart.shop</span>
+            </div>
+            <div class="age-note">21+ only</div>
+          </div>
 
-        <div class="logo-wrap" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C10 6 8 7 6 9c2 0 3 1 3 3-2-1-4-1-6 1 3 1 5 2 6 4-2 0-3 1-4 3 3 0 6-2 7-5 1 3 4 5 7 5-1-2-2-3-4-3 1-2 3-3 6-4-2-2-4-2-6-1 0-2 1-3 3-3-2-2-4-3-6-7z" fill="currentColor" />
-          </svg>
+          <div class="hero-copy">
+            <span class="eyebrow">Premium menu access</span>
+            <h1>Traplanta</h1>
+            <p class="subtext">
+              Current menu, fresh updates, and direct contact in one place.
+              Clean, simple, and updated regularly.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://rentry.co/traplanta/">View Menu</a>
+              <a class="btn btn-secondary" href="/drops">Latest Drops</a>
+            </div>
+          </div>
         </div>
 
-        <h1>Traplanta</h1>
-        <p class="subtext">Menu access and updates.</p>
-
-        <div class="links">
-          <a class="link-card" href="https://www.snapchat.com/@peter.kyc">
-            <div class="link-inner">
-              <span class="link-label">Snapchat</span>
-              <span class="enter">Enter</span>
-            </div>
-          </a>
-
-          <a class="link-card" href="https://rentry.co/traplanta/">
-            <div class="link-inner">
-              <span class="link-label">Menu</span>
-              <span class="enter">Enter</span>
-            </div>
-          </a>
-
-          <a class="link-card" href="/drops">
-            <div class="link-inner">
-              <span class="link-label">New Updates</span>
-              <span class="enter">Enter</span>
-            </div>
-          </a>
-        </div>
-
-      
-
-          <p class="disclaimer">21+ ONLY · NO PUBLIC ACCESS</p>
+        <div class="bottom-meta">
+          <div class="meta-card">
+            <div class="meta-label">Access</div>
+            <div class="meta-value">Menu and updates in one hub.</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Availability</div>
+            <div class="meta-value">Stay current with new additions and changes.</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Contact</div>
+            <div class="meta-value">Direct line through Snapchat for questions.</div>
+          </div>
         </div>
       </div>
+
+      <aside class="right">
+        <div class="menu-panel">
+          <div>
+            <div class="menu-top">
+              <div class="menu-title-wrap">
+                <h2>Quick Access</h2>
+                <p>Everything important, without the clutter.</p>
+              </div>
+              <div class="status-pill">Updated regularly</div>
+            </div>
+
+            <div class="menu-links">
+              <a class="menu-link" href="https://rentry.co/traplanta/">
+                <div class="menu-link-left">
+                  <span class="menu-link-label">View Menu</span>
+                  <span class="menu-link-desc">Browse the current menu and latest listings.</span>
+                </div>
+                <span class="menu-link-arrow">↗</span>
+              </a>
+
+              <a class="menu-link" href="/drops">
+                <div class="menu-link-left">
+                  <span class="menu-link-label">New Drops</span>
+                  <span class="menu-link-desc">Check recent updates, restocks, and additions.</span>
+                </div>
+                <span class="menu-link-arrow">↗</span>
+              </a>
+
+              <a class="menu-link" href="https://www.snapchat.com/@peter.kyc">
+                <div class="menu-link-left">
+                  <span class="menu-link-label">Snapchat</span>
+                  <span class="menu-link-desc">Direct contact and live communication.</span>
+                </div>
+                <span class="menu-link-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="menu-footer">
+            <div class="menu-footer-left">
+              <span>Private access</span>
+              <span class="mini-dot"></span>
+              <span>Clean interface</span>
+            </div>
+            <div class="menu-footer-right">
+              <span>YART</span>
+              <span class="mini-dot"></span>
+              <span>No public access</span>
+            </div>
+          </div>
+        </div>
+      </aside>
     </section>
   </main>
 </body>
