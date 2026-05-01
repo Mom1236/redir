@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traplanta2 Menu</title>
+  <style>
+    :root {
+      --bg: #080b12;
+      --card: #111827;
+      --card2: #172033;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(255,255,255,.10);
+      --purple: #a855f7;
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --gold: #facc15;
+      --orange: #fb923c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(168,85,247,.22), transparent 32%),
+        radial-gradient(circle at top right, rgba(56,189,248,.16), transparent 30%),
+        linear-gradient(180deg, #080b12, #0f172a 58%, #080b12);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 16px 70px;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(168,85,247,.20), rgba(15,23,42,.94));
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.32);
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 220px;
+      height: 220px;
+      background: rgba(56,189,248,.12);
+      border-radius: 999px;
+      filter: blur(4px);
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 58px);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      color: #cbd5e1;
+      max-width: 760px;
+      font-size: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      color: #e0f2fe;
+      font-weight: 900;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .notice {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 28px;
+    }
+
+    .notice div {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 19px;
+      padding: 14px;
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .section { margin: 28px 0; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 32px);
+      letter-spacing: -0.035em;
+    }
+
+    .status {
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      background: rgba(34,197,94,.13);
+      color: #86efac;
+      border: 1px solid rgba(34,197,94,.28);
+      white-space: nowrap;
+    }
+
+    .status.soon {
+      background: rgba(250,204,21,.13);
+      color: #fde68a;
+      border-color: rgba(250,204,21,.28);
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0,0,0,.24);
+    }
+
+    .product-head {
+      padding: 18px;
+      background: rgba(255,255,255,.035);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .product-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 240px;
+    }
+
+    .product-img {
+      width: 76px;
+      height: 76px;
+      border-radius: 18px;
+      object-fit: cover;
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 25px rgba(0,0,0,.22);
+      flex-shrink: 0;
+    }
+
+    .product-name {
+      font-size: 20px;
+      font-weight: 950;
+      letter-spacing: -0.025em;
+    }
+
+    .product-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+
+    .prices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .price {
+      background: rgba(56,189,248,.11);
+      color: #bae6fd;
+      border: 1px solid rgba(56,189,248,.25);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .flavors {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flavor {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 13px;
+      border-radius: 16px;
+      background: rgba(15,23,42,.74);
+      border: 1px solid rgba(255,255,255,.075);
+      min-height: 48px;
+    }
+
+    .flavor span:first-child {
+      font-weight: 750;
+      color: #f1f5f9;
+    }
+
+    .stock {
+      font-size: 12px;
+      font-weight: 950;
+      color: #86efac;
+      white-space: nowrap;
+    }
+
+    .subhead {
+      grid-column: 1 / -1;
+      color: #c4b5fd;
+      font-weight: 950;
+      font-size: 14px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 2px 2px;
+    }
+
+    .empty {
+      padding: 20px;
+      color: #cbd5e1;
+      font-weight: 750;
+    }
+
+    .footer {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 24px;
+      padding: 18px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .footer strong { color: white; }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 18px 12px 50px; }
+      .hero { padding: 22px; border-radius: 22px; }
+      .notice { grid-template-columns: 1fr; }
+      .flavors { grid-template-columns: 1fr; padding: 12px; }
+      .product-head { align-items: flex-start; }
+      .product-left { width: 100%; }
+      .prices { justify-content: flex-start; }
+      .product-img { width: 68px; height: 68px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>Traplanta2 Menu</h1>
+          <p>Updated product menu with pricing, flavor availability, and clean product images.</p>
+        </div>
+        <div class="tag">🔞 21+ Only</div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <div><strong>📦 Availability:</strong><br>Flavors are first come, first serve and may change at any time.</div>
+      <div><strong>🚚 Options:</strong><br>Local pickup, local delivery, and free 2-day shipping available on request.</div>
+      <div><strong>📝 Ordering:</strong><br>DM to confirm current stock before placing an order.</div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🟣 Lost Mary MT35000 Turbo</h2>
+        <span class="status">RESTOCKED</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <div class="product-img" style="display:flex;align-items:center;justify-content:center;font-size:34px;">🟣</div>
+            <div>
+              <div class="product-name">Lost Mary MT35000 Turbo</div>
+              <div class="product-sub">35k hits</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">2 for $50</span>
+            <span class="price">3 for $70</span>
+          </div>
+        </div>
+        <div class="flavors">
+          <div class="flavor"><span>🔵❄️ Blue Razz Ice</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍊🥭 Orange Passion Mango</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋 Pink Lemonade+</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍓 Berry Burst</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌴💦 Baja Splash</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌴❄️ Miami Mint</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🏔️🍓 Mountain Berry</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>☀️🍊 Sunny Orange</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍓🐉 Strawberry Dragon</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍊✨ Orange Pixy</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🟣✨ Purple Pixy</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🔴✨ Red Pixy</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>⚪✨ White Pixy</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🟡✨ Yellow Pixy</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>❄️🟣 Black Mint+</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍇 Summer Grape</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>👻🍇 Scary Berry+</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍉💉 Tigers Blood+</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍍🍈 Pineapple Lime+</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🚀❄️ Rocket Freeze</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋🔵 Blue Razz Lemonade</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋🏝️ Tropical Lemonade</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋🌿 Mint Lemonade</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌓🍋 Half & Half Lemonade</span><span class="stock">IN STOCK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🔹 Geek Bar Pulse X</h2>
+        <span class="status soon">SHIPMENT SOON</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://cdn11.bigcommerce.com/s-nlylv/images/stencil/608x608/products/2539/9022/PULSE_X_01-800x800__41304.1716326240.jpg?c=2" alt="Geek Bar Pulse X">
+            <div>
+              <div class="product-name">Geek Bar Pulse X</div>
+              <div class="product-sub">25k hits · Rare find</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">2 for $55</span>
+            <span class="price">3 for $75</span>
+            <span class="price">5 for $110</span>
+          </div>
+        </div>
+        <div class="empty">Shipment soon. Flavors will be posted when available.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🔹 Geek Bar Pulse</h2>
+        <span class="status soon">SHIPMENT SOON</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://cdn11.bigcommerce.com/s-nlylv/images/stencil/608x608/products/2490/8523/geek-bar-geek-bar-pulse-15000__74951.1755616831.jpg?c=2" alt="Geek Bar Pulse">
+            <div>
+              <div class="product-name">Geek Bar Pulse</div>
+              <div class="product-sub">15k hits · Rare</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">2 for $50</span>
+            <span class="price">3 for $70</span>
+            <span class="price">5 for $100</span>
+          </div>
+        </div>
+        <div class="empty">Shipment soon. Flavors will be posted when available.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Raw Garden Sauce AIO</h2>
+        <span class="status soon">ON THE WAY</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/q382Qm70/image.png" alt="Raw Garden">
+            <div>
+              <div class="product-name">Raw Garden Sauce AIO</div>
+              <div class="product-sub">Shipping soon</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $40</span>
+            <span class="price">2 for $70</span>
+            <span class="price">3 for $90</span>
+          </div>
+        </div>
+        <div class="empty">On the way shipping.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Muha 3rd Gen 2G</h2>
+        <span class="status soon">ON THE WAY</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/23JQdXRf/image.png" alt="Muha">
+            <div>
+              <div class="product-name">Muha 3rd Gen</div>
+              <div class="product-sub">2G · Shipping soon</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $30</span>
+            <span class="price">2 for $55</span>
+            <span class="price">3 for $75</span>
+          </div>
+        </div>
+        <div class="empty">On the way shipping.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Big Chief V3 2G</h2>
+        <span class="status">IN STOCK</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/3ydYgsQ3/image.png" alt="Big Chief">
+            <div>
+              <div class="product-name">Big Chief V3</div>
+              <div class="product-sub">2G</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $30</span>
+            <span class="price">2 for $55</span>
+            <span class="price">3 for $75</span>
+          </div>
+        </div>
+        <div class="flavors">
+          <div class="flavor"><span>🍰🍬 Red Velvet Cake (I) x Cupidz Candy (I)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍊❄️ Yuza Ice (S) x Cherry Cola (H)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍵🌿 Wabi Sabi (S) x Green Matcha (S)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌴⚡ Tropic Thunder (S) x Passion Fruit Punch (S)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍰🚀 Sherb Cake (I) x Rocket Runtz (H)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍏🍊 Atomic Apple (S) x Florida Oranges (H)</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍥🍑 Jelly Roll (H) x White Peach Tea (H)</span><span class="stock">IN STOCK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Cali Clear 2G Party Pack</h2>
+        <span class="status">IN STOCK</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/xKMczh53/image.png" alt="Cali Clear">
+            <div>
+              <div class="product-name">Cali Clear Party Pack</div>
+              <div class="product-sub">2G · Season menu</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $27</span>
+            <span class="price">2 for $50</span>
+            <span class="price">3 for $70</span>
+          </div>
+        </div>
+        <div class="flavors">
+          <div class="subhead">🌈 Season 3</div>
+          <div class="flavor"><span>🍎🚫 Forbidden Fruit</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍑🇬🇪 Georgia Peach</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍍🌴 Jungle Juice</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🥭🍡 Mango Mochi</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌈🍬 Rainbow Belts</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🚀🍭 Rocket Pop</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍒🥤 Cherry Vanilla Coke</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍉🍋 Watermelon Lime Agua Fresca</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🧪✨ Tusi</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🪐🫐 Space X Berries</span><span class="stock">IN STOCK</span></div>
+
+          <div class="subhead">🌈 Season 2</div>
+          <div class="flavor"><span>🫐🍌 Blueberry Banana</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍒🍋 Cherry Limeade</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🥣🌈 Fruity Pebbles</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>👑🌿 King Louis XIII</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🇬🇧💧 London Drip</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌺🌊 Maui Wowie</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🥂🍊 Mimosa</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍍🥥 Piña Colada</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍉🔥 Watermelon Runtz</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>💥🧃 Zaza Blast</span><span class="stock">IN STOCK</span></div>
+
+          <div class="subhead">🌈 Season 1</div>
+          <div class="flavor"><span>🍌🥭 Banana Mango</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>💙🌙 Blue Dream</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌿🔥 Bubba Kush</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>☁️🚶 Cloud Walker</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🥤😈 Dirty Sprite</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>👻🚂 Ghost Train</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋🍒 Lemon Cherry Gelato</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌸🔥 Pink Runtz</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍋⚡ Super Lemon Haze</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>💨⚡ Turbo Diesel</span><span class="stock">IN STOCK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Ace 2G</h2>
+        <span class="status">IN STOCK</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/5hLmPR8V/image.png" alt="Gold Ace">
+            <div>
+              <div class="product-name">Gold Ace</div>
+              <div class="product-sub">2G</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $30</span>
+            <span class="price">2 for $55</span>
+            <span class="price">3 for $75</span>
+          </div>
+        </div>
+        <div class="flavors">
+          <div class="flavor"><span>🫐🍓 Ultra Berry</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍑🌴 Ultra Peach Paradise</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍓💥 True Berry Bash</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🌴🍊 Signature Tropic Tango</span><span class="stock">IN STOCK</span></div>
+          <div class="flavor"><span>🍌🍬 Signature Banana Taffy</span><span class="stock">IN STOCK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Boutiq Snack Packs</h2>
+        <span class="status soon">ON THE WAY</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/Y5Bt6Pv/image.png" alt="Boutiq">
+            <div>
+              <div class="product-name">Boutiq Snack Packs</div>
+              <div class="product-sub">5 CT · Shipping soon</div>
+            </div>
+          </div>
+          <div class="prices"><span class="price">Pricing coming soon</span></div>
+        </div>
+        <div class="empty">On the way shipping.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Boutiq Switch Orbs 2G</h2>
+        <span class="status soon">ON THE WAY</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <img class="product-img" src="https://i.ibb.co/Y5Bt6Pv/image.png" alt="Boutiq Switch">
+            <div>
+              <div class="product-name">Boutiq Switch Orbs</div>
+              <div class="product-sub">2G · Shipping soon</div>
+            </div>
+          </div>
+          <div class="prices"><span class="price">Pricing coming soon</span></div>
+        </div>
+        <div class="empty">On the way shipping.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>🍃 Namu Live Resin Infused Edibles</h2>
+        <span class="status soon">ON THE WAY</span>
+      </div>
+      <div class="product-card">
+        <div class="product-head">
+          <div class="product-left">
+            <div class="product-img" style="display:flex;align-items:center;justify-content:center;font-size:34px;">🍬</div>
+            <div>
+              <div class="product-name">Namu Edibles</div>
+              <div class="product-sub">1000MG · Shipping soon</div>
+            </div>
+          </div>
+          <div class="prices">
+            <span class="price">1 for $30</span>
+            <span class="price">2 for $45</span>
+            <span class="price">3 for $60</span>
+          </div>
+        </div>
+        <div class="empty">On the way shipping.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <strong>Important:</strong> All flavors are subject to availability. DM to confirm current stock before ordering. Buyer must be 21+. Only available where legally permitted.
+    </footer>
+  </main>
+</body>
+</html>
